@@ -4,6 +4,7 @@
 
 import warnings
 from pathlib import Path
+import sys
 
 import click
 import matplotlib.pyplot as plt
@@ -13,6 +14,7 @@ from cfspopcon import file_io
 from cfspopcon.input_file_handling import read_case
 from cfspopcon.plotting import make_plot, read_plot_style
 from cfspopcon.unit_handling import UnitStrippedWarning
+
 
 
 @click.command()
@@ -79,10 +81,10 @@ def run_popcon(case: str, show: bool, cli_args: dict[str, str]) -> None:
     # Plot the results
     if plots is not None:
         for plot_name, plot_style in plots.items():
-            print(f"Plotting {plot_name}")
+            # print(f"Plotting {plot_name}")
             make_plot(dataset, read_plot_style(plot_style), points, title=plot_name, output_dir=output_dir, save_name=plot_style.stem)
 
-    print("Done")
+    # print("Done")
     if show:
         plt.show()
 
