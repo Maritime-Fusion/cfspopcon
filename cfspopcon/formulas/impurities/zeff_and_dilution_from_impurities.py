@@ -1,6 +1,7 @@
 """Calculate the impact of core impurities on z_effective and dilution."""
 
 import xarray as xr
+from pathlib import Path
 
 from ...algorithm_class import Algorithm
 from ...unit_handling import Unitfull
@@ -50,6 +51,26 @@ def calc_zeff_and_dilution_due_to_impurities(
     # left for the main ions. The following line prevents the main ion density from reaching
     # negative values.
     dilution = dilution.where(dilution >= 0, 0.0)
+
+    # Create output directories
+    output_dir = Path('fusion_data')
+    output_dir.mkdir(exist_ok=True)
+
+    # save dilution and z_effective into a binary file
+
+    # Define a helper function to save binary data
+    def save_binary(filename, array):
+        with open(filename, 'wb') as f:
+            f.write(array.values.tobytes()) 
+
+    #save z_effective to a binary file
+    save_binary(output_dir / 'z_effective.bin', z_effective)
+    #save dilution to a binary file
+    save_binary(output_dir / 'dilution.bin', dilution)
+    save_binary(output_dir / 'summed_impurity_density.bin', summed_impurity_density)
+
+
+
     summed_impurity_density = impurity_concentration.sum(dim="dim_species") * average_electron_density
     average_ion_density = dilution * average_electron_density
 

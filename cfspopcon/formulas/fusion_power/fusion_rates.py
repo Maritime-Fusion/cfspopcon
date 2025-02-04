@@ -3,6 +3,7 @@
 import xarray as xr
 from numpy import float64
 from numpy.typing import NDArray
+from pathlib import Path
 
 from ...algorithm_class import Algorithm
 from ...unit_handling import Unitfull, ureg
@@ -53,6 +54,20 @@ def calc_fusion_power(
     charged_power_density_factor = reaction.calc_power_density_to_charged(
         ion_temp=ion_temp_profile, heavier_fuel_species_fraction=heavier_fuel_species_fraction
     )
+
+    # Create output directories
+    output_dir = Path('fusion_data')
+    output_dir.mkdir(exist_ok=True)
+
+    # Define a helper function to save binary data
+    def save_binary(filename, array):
+        with open(filename, 'wb') as f:
+            f.write(array.values.tobytes()) 
+
+    # Save binary data (keeps 3D structure)
+    save_binary(output_dir / 'power_density.bin', power_density_factor)
+    save_binary(output_dir / 'rho.bin', rho)
+    save_binary(output_dir / 'fuel_ion_density.bin', fuel_ion_density_profile)
 
     total_fusion_power = _integrate_power(
         power_density_factor=power_density_factor,
