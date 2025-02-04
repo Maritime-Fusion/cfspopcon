@@ -86,7 +86,8 @@ def run_popcon(case: str, show: bool, cli_args: dict[str, str]) -> None:
 
     # print("Done")
     if show:
-        plt.show()
+        # plt.show()
+        pass
 
 
 if __name__ == "__main__":

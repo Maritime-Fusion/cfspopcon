@@ -238,7 +238,7 @@ edge_impurity_enrichment: 5.0
 # What set of fitting coefficients for the surface inductance?
 surface_inductance_coefficients: Barr
 # How much flux is availble from the CS for ramp-up and flattop? [Wb]
-total_flux_available_from_CS: 70
+total_flux_available_from_CS: 100
 # What is the scaling law factor for resistive flux consumption over the ramp-up?
 ejima_coefficient: 0.6
 # safety-factor on axis
