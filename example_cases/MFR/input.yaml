@@ -128,7 +128,7 @@ grid:
 
 points:
   PRD:
-    minimize: neutron_flux_to_walls
+    minimize: neutron_power_flux_to_walls
     where:
       Q:
         min: 0
