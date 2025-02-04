@@ -128,9 +128,12 @@ grid:
 
 points:
   PRD:
-    maximize: Q
+    minimize: neutron_flux_to_walls
     where:
-      P_auxiliary_launched:
+      Q:
+        min: 0
+        max: 40
+      P_external:
         min: 0.0
         max: 25.0
         units: MW
@@ -139,8 +142,11 @@ points:
       ratio_of_P_SOL_to_P_LH:
         min: 1.0
       P_fusion:
-        max: 140.0
+        max: 125.0
         units: MW
+      max_flattop_duration:
+        min: 300
+        units: s
 
 plots:
   "POPCON for MFR": CASE_DIR/plot_popcon.yaml
@@ -173,8 +179,8 @@ fusion_reaction: DTFusionBoschHale
 heavier_fuel_species_fraction: 0.5
 
 # What sort of 1D profiles should be assumed?
-density_profile_form: analytic
-temp_profile_form: analytic
+density_profile_form: prf
+temp_profile_form: prf
 # Inverse normalized electron temp scale length a / L_Te = a / (Te / grad(Te))
 normalized_inverse_temp_scale_length: 2.5
 # Offset for the electron density peaking factor
