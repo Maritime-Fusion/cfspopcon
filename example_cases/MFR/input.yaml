@@ -173,8 +173,8 @@ fusion_reaction: DTFusionBoschHale
 heavier_fuel_species_fraction: 0.5
 
 # What sort of 1D profiles should be assumed?
-density_profile_form: prf
-temp_profile_form: prf
+density_profile_form: analytic
+temp_profile_form: analytic
 # Inverse normalized electron temp scale length a / L_Te = a / (Te / grad(Te))
 normalized_inverse_temp_scale_length: 2.5
 # Offset for the electron density peaking factor
@@ -238,10 +238,10 @@ edge_impurity_enrichment: 5.0
 # What set of fitting coefficients for the surface inductance?
 surface_inductance_coefficients: Barr
 # How much flux is availble from the CS for ramp-up and flattop? [Wb]
-total_flux_available_from_CS: 35
+total_flux_available_from_CS: 100
 # What is the scaling law factor for resistive flux consumption over the ramp-up?
 ejima_coefficient: 0.6
 # safety-factor on axis
 safety_factor_on_axis: 1
 # Which vertical magnetic field equation based on toroidal force balance?
-vertical_magnetic_field_equation: Barr
+vertical_magnetic_field_equation: MagneticFusionEnergyFormulary
