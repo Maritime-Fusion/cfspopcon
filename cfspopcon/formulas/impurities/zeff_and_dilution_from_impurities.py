@@ -67,11 +67,11 @@ def calc_zeff_and_dilution_due_to_impurities(
     save_binary(output_dir / 'z_effective.bin', z_effective)
     #save dilution to a binary file
     save_binary(output_dir / 'dilution.bin', dilution)
-    save_binary(output_dir / 'summed_impurity_density.bin', summed_impurity_density)
-
 
 
     summed_impurity_density = impurity_concentration.sum(dim="dim_species") * average_electron_density
+
+    save_binary(output_dir / 'summed_impurity_density.bin', summed_impurity_density)
     average_ion_density = dilution * average_electron_density
 
     return impurity_charge_state, change_in_zeff, change_in_dilution, z_effective, dilution, summed_impurity_density, average_ion_density

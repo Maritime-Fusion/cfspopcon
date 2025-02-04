@@ -116,14 +116,14 @@ grid:
     # Average electron density in 1e19 particles / m^3
     min: 1.0
     max: 40.0
-    num: 40
+    num: 100
     spacing: linear
 
   average_electron_temp:
     # Average electron temperature in keV
     min: 5.0
     max: 20.0
-    num: 30
+    num: 100
     spacing: linear
 
 points:
@@ -173,8 +173,8 @@ fusion_reaction: DTFusionBoschHale
 heavier_fuel_species_fraction: 0.5
 
 # What sort of 1D profiles should be assumed?
-density_profile_form: analytic
-temp_profile_form: analytic
+density_profile_form: prf
+temp_profile_form: prf
 # Inverse normalized electron temp scale length a / L_Te = a / (Te / grad(Te))
 normalized_inverse_temp_scale_length: 2.5
 # Offset for the electron density peaking factor
@@ -193,7 +193,7 @@ confinement_time_scalar: 1.0
 # Name of the tau_e scaling used
 energy_confinement_scaling: ITER98y2
 
-radiated_power_method: Inherent
+radiated_power_method: Radas
 radiated_power_scalar: 1.0
 minimum_core_radiated_fraction: 0.0
 radas_dir: "WORKING_DIR/radas_dir"
@@ -238,10 +238,10 @@ edge_impurity_enrichment: 5.0
 # What set of fitting coefficients for the surface inductance?
 surface_inductance_coefficients: Barr
 # How much flux is availble from the CS for ramp-up and flattop? [Wb]
-total_flux_available_from_CS: 100
+total_flux_available_from_CS: 35
 # What is the scaling law factor for resistive flux consumption over the ramp-up?
 ejima_coefficient: 0.6
 # safety-factor on axis
 safety_factor_on_axis: 1
 # Which vertical magnetic field equation based on toroidal force balance?
-vertical_magnetic_field_equation: MagneticFusionEnergyFormulary
+vertical_magnetic_field_equation: Barr
