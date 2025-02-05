@@ -179,8 +179,8 @@ fusion_reaction: DTFusionBoschHale
 heavier_fuel_species_fraction: 0.5
 
 # What sort of 1D profiles should be assumed?
-density_profile_form: prf
-temp_profile_form: prf
+density_profile_form: analytic
+temp_profile_form: analytic
 # Inverse normalized electron temp scale length a / L_Te = a / (Te / grad(Te))
 normalized_inverse_temp_scale_length: 2.5
 # Offset for the electron density peaking factor
