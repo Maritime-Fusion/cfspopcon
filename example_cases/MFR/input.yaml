@@ -144,9 +144,6 @@ points:
       P_fusion:
         max: 125.0
         units: MW
-      max_flattop_duration:
-        min: 300
-        units: s
 
 plots:
   "POPCON for MFR": CASE_DIR/plot_popcon.yaml

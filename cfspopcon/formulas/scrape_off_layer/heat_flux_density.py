@@ -22,7 +22,10 @@ def calc_B_pol_omp(plasma_current: float, minor_radius: float) -> float:
     Returns:
          B_pol_out_mid [T]
     """
-    return float(constants.mu_0 * plasma_current / (2.0 * np.pi * minor_radius))
+    step0 = plasma_current / (2.0 * np.pi * minor_radius)
+    step1 = constants.mu_0 * step0
+    print(step1/step0)
+    return float(step1)
 
 
 @Algorithm.register_algorithm(return_keys=["B_t_out_mid"])
