@@ -61,6 +61,8 @@ def calc_fusion_power(
 
     # Define a helper function to save binary data
     def save_binary(filename, array):
+        data = array.values if hasattr(array, "values") else array
+        print(f"Saving {filename}: shape = {data.shape}, total elements = {data.size}")
         with open(filename, 'wb') as f:
             f.write(array.values.tobytes()) 
 

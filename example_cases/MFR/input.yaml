@@ -116,14 +116,14 @@ grid:
     # Average electron density in 1e19 particles / m^3
     min: 1.0
     max: 40.0
-    num: 100
+    num: 150
     spacing: linear
 
   average_electron_temp:
     # Average electron temperature in keV
     min: 5.0
     max: 20.0
-    num: 100
+    num: 150
     spacing: linear
 
 points:
@@ -146,8 +146,8 @@ points:
         units: MW
 
 plots:
-  "POPCON for MFR": CASE_DIR/plot_popcon.yaml
-  "MFR $(n_e, P_{aux})$": CASE_DIR/plot_remapped.yaml
+  "POPCON for Yinsen": CASE_DIR/plot_popcon.yaml
+  "Yinsen $(n_e, P_{aux})$": CASE_DIR/plot_remapped.yaml
 
 # Major radius in metres
 major_radius: 1.85
@@ -215,7 +215,7 @@ nesep_over_nebar: 0.3
 # R_t/R_u = major radius at target / major radius upstream (outboard midplane)
 toroidal_flux_expansion: 0.6974
 # Length along field-line from upstream (outboard midplane) to target in m
-parallel_connection_length: 30.0
+parallel_connection_length: 2.5
 # Lambda_q scaling (matching a LambdaQScaling in named_options)
 lambda_q_scaling: EichRegression15
 # Scaling factor for lambda_q relative to selected scaling

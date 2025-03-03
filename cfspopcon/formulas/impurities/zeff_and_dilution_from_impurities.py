@@ -2,7 +2,6 @@
 
 import xarray as xr
 from pathlib import Path
-
 from ...algorithm_class import Algorithm
 from ...unit_handling import Unitfull
 from .impurity_charge_state import calc_impurity_charge_state
@@ -35,46 +34,56 @@ def calc_zeff_and_dilution_due_to_impurities(
 
     Returns:
         :term:`impurity_charge_state`, :term:`change_in_zeff`, :term:`change_in_dilution`, :term:`z_effective`, :term:`dilution`, :term:`summed_impurity_density`, :term:`average_ion_density`
-
     """
     starting_zeff = 1.0
     starting_dilution = 1.0
 
-    impurity_charge_state = calc_impurity_charge_state(average_electron_density, average_electron_temp, impurity_concentration, atomic_data)
+    impurity_charge_state = calc_impurity_charge_state(
+        average_electron_density, average_electron_temp, impurity_concentration, atomic_data
+    )
     change_in_zeff = calc_change_in_zeff(impurity_charge_state, impurity_concentration)
     change_in_dilution = calc_change_in_dilution(impurity_charge_state, impurity_concentration)
 
+    # Sum over species to obtain effective values.
     z_effective = starting_zeff + change_in_zeff.sum(dim="dim_species")
     dilution = starting_dilution - change_in_dilution.sum(dim="dim_species")
 
-    # For strong seeding, the impurity content can reach levels where there are no electrons
-    # left for the main ions. The following line prevents the main ion density from reaching
-    # negative values.
+    # Prevent negative dilution values.
     dilution = dilution.where(dilution >= 0, 0.0)
 
-    # Create output directories
+    # Create output directory.
     output_dir = Path('fusion_data')
     output_dir.mkdir(exist_ok=True)
 
-    # save dilution and z_effective into a binary file
-
-    # Define a helper function to save binary data
+    # Define a helper function to save binary data and print array details.
     def save_binary(filename, array):
+        # Print the shape and size of the array before saving.
+        print(f"Saving {filename}: shape = {array.shape}, total elements = {array.size}")
         with open(filename, 'wb') as f:
-            f.write(array.values.tobytes()) 
+            f.write(array.values.tobytes())
 
-    #save z_effective to a binary file
+    # Save z_effective to a binary file.
     save_binary(output_dir / 'z_effective.bin', z_effective)
-    #save dilution to a binary file
+    # Save dilution to a binary file.
     save_binary(output_dir / 'dilution.bin', dilution)
 
-
+    # Calculate summed impurity density.
     summed_impurity_density = impurity_concentration.sum(dim="dim_species") * average_electron_density
-
     save_binary(output_dir / 'summed_impurity_density.bin', summed_impurity_density)
+
+    # Calculate average ion density.
     average_ion_density = dilution * average_electron_density
 
-    return impurity_charge_state, change_in_zeff, change_in_dilution, z_effective, dilution, summed_impurity_density, average_ion_density
+    return (
+        impurity_charge_state,
+        change_in_zeff,
+        change_in_dilution,
+        z_effective,
+        dilution,
+        summed_impurity_density,
+        average_ion_density,
+    )
+
 
 
 def calc_change_in_zeff(impurity_charge_state: float, impurity_concentration: xr.DataArray) -> xr.DataArray:
